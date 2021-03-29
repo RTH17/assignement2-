@@ -1,0 +1,20 @@
+import numpy
+import pandas as pd
+import statsmodels.api as sm
+import seaborn
+import statsmodels.formula.api as smf 
+data = pd.read_excel('工作簿1.xlsx')
+
+data
+
+data.rename(columns = {'centered exp var':'CFDI','gdp growth':'gdpG'},inplace=True)
+
+data
+
+#centering quantitative explanatory variable CFDI
+data['CFDI_c'] = (data['CFDI'] - data['CFDI'].mean())
+
+data
+
+regression_model = smf.ols(formula='gdpG ~ CFDI_c', data = data).fit()
+print(regression_model.summary())
